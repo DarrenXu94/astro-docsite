@@ -1,0 +1,34 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import { getAllPagesWithSlugs } from "../../lib/api";
+import showdown from "showdown";
+const converter = new showdown.Converter();
+
+export async function getStaticPaths() {
+  const pagesWithSlugs = await getAllPagesWithSlugs();
+  return pagesWithSlugs.map((component) => {
+    return {
+      params: { slug: component.attributes.title },
+      props: { component },
+    };
+  });
+}
+
+const { component } = Astro.props;
+const page = component.attributes;
+
+const frontmatter = {
+  title: page.title,
+};
+---
+
+<head><meta http-equiv="refresh" content={`0; url=DSButton-demo`} /></head>
+<!-- <MainLayout {frontmatter}>
+  <article style="white-space: pre-line;">
+    <Fragment set:html={converter.makeHtml(page.demo)} />
+  </article>
+  <article style="white-space: pre-line;">
+    <Fragment set:html={converter.makeHtml(page.design)} />
+  </article>
+  <iframe src={page.link} width="100%" height="100" frameborder="0"></iframe>
+</MainLayout> -->

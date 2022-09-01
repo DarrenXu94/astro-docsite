@@ -1,0 +1,50 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import { getAllPagesWithSlugs } from "../../lib/api";
+
+import Tabs from "../../components/Tabs/Tabs.astro";
+
+import showdown from "showdown";
+const converter = new showdown.Converter();
+
+export async function getStaticPaths() {
+  const pagesWithSlugs = await getAllPagesWithSlugs();
+  // return pagesWithSlugs.map((component) => {
+  //   return {
+  //     params: { slug: component.attributes.title, subdir: "demo" },
+  //     props: { component },
+  //   };
+  // });
+  return pagesWithSlugs.reduce((acc, component) => {
+    const list = [...acc];
+    list.push({
+      params: { slug: component.attributes.title, subdir: "demo" },
+      props: { component },
+    });
+
+    list.push({
+      params: { slug: component.attributes.title, subdir: "design" },
+      props: { component },
+    });
+    return list;
+  }, []);
+}
+
+const { component } = Astro.props;
+const page = component.attributes;
+
+const { subdir } = Astro.params;
+
+const frontmatter = {
+  title: page.title,
+};
+
+const allTabs = ["demo", "design"];
+---
+
+<MainLayout {frontmatter}>
+  <Tabs {allTabs} active={subdir} {component} />
+  <article style="white-space: pre-line;">
+    <Fragment set:html={converter.makeHtml(page[subdir])} />
+  </article>
+</MainLayout>
