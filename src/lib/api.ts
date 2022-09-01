@@ -24,3 +24,8 @@ export const getAllPagesWithSlugs = async () => {
   const data = await fetchAPI(`${BASE_URL}/components`);
   return data;
 };
+
+export const getMenu = async () => {
+  const data = await fetchAPI(`${BASE_URL}/menus?nested&populate=*`);
+  return data;
+};
