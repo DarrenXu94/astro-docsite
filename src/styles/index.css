@@ -196,7 +196,7 @@ code {
 
 	font-family: var(--font-mono);
 	font-size: 0.85em;
-	color: inherit;
+	color: var(--theme-text-accent);
 	background-color: var(--theme-code-inline-bg);
 	padding: var(--padding-block) var(--padding-inline);
 	margin: calc(var(--padding-block) * -1) -0.125em;

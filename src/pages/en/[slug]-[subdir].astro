@@ -9,12 +9,6 @@ const converter = new showdown.Converter();
 
 export async function getStaticPaths() {
   const pagesWithSlugs = await getAllPagesWithSlugs();
-  // return pagesWithSlugs.map((component) => {
-  //   return {
-  //     params: { slug: component.attributes.title, subdir: "demo" },
-  //     props: { component },
-  //   };
-  // });
   return pagesWithSlugs.reduce((acc, component) => {
     const list = [...acc];
     list.push({
@@ -40,6 +34,8 @@ const frontmatter = {
 };
 
 const allTabs = ["demo", "design"];
+
+console.log(page[subdir]);
 ---
 
 <MainLayout {frontmatter}>
@@ -47,4 +43,5 @@ const allTabs = ["demo", "design"];
   <article style="white-space: pre-line;">
     <Fragment set:html={converter.makeHtml(page[subdir])} />
   </article>
+  <iframe src={page.link} width="100%" height="100" frameborder="0"></iframe>
 </MainLayout>
