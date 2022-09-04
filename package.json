@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate": "node --experimental-modules ./src/scripts/generate.mjs"
+    "generate": "node --experimental-modules ./src/scripts/generate.mjs",
+    "set-subdomain": "echo 'docs.darrenxu.com' > './docs/CNAME'"
   },
   "dependencies": {
     "@algolia/client-search": "^4.13.1",

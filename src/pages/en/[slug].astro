@@ -1,5 +1,4 @@
 ---
-import MainLayout from "../../layouts/MainLayout.astro";
 import { getAllPagesWithSlugs } from "../../lib/api";
 import showdown from "showdown";
 const converter = new showdown.Converter();
@@ -20,8 +19,16 @@ const page = component.attributes.Page;
 const frontmatter = {
   title: page.title,
 };
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const currentPage = Astro.url.pathname;
+
+console.log(process.env);
+
+const url =
+  process.env.NODE_ENV == "development"
+    ? `${frontmatter.title}-demo`
+    : `${canonicalURL.origin}/${frontmatter.title}-demo`;
 ---
 
-<head
-  ><meta http-equiv="refresh" content={`0; url=${frontmatter.title}-demo`} />
-</head>
+<head><meta http-equiv="refresh" content={`0; url=${url}`} /></head>
