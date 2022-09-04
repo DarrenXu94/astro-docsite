@@ -1,6 +1,7 @@
 ---
 import SidebarItem from "./SidebarItem.astro";
 const { listOfItems } = Astro.props;
+const { slug } = Astro.params;
 ---
 
 {
@@ -37,7 +38,12 @@ const { listOfItems } = Astro.props;
     } else {
       return (
         <li class="nav-link">
-          <a href={`${item.attributes.url}`}>{item.attributes.title}</a>
+          <a
+            aria-current={slug === item.attributes.title ? "page" : false}
+            href={`${item.attributes.url}`}
+          >
+            {item.attributes.title}
+          </a>
         </li>
       );
     }

@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "generate": "node --experimental-modules ./src/scripts/generate.mjs"
   },
   "dependencies": {
     "@algolia/client-search": "^4.13.1",
@@ -23,6 +24,7 @@
     "@astrojs/preact": "^1.0.2",
     "@astrojs/react": "^1.1.0",
     "@astrojs/vue": "^1.0.0",
+    "@astropub/webapi": "^0.10.14",
     "@types/node": "^18.7.14",
     "astro": "^1.1.1",
     "showdown": "^2.1.0",

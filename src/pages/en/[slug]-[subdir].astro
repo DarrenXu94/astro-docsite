@@ -12,12 +12,12 @@ export async function getStaticPaths() {
   return pagesWithSlugs.reduce((acc, component) => {
     const list = [...acc];
     list.push({
-      params: { slug: component.attributes.title, subdir: "demo" },
+      params: { slug: component.attributes.Page.title, subdir: "demo" },
       props: { component },
     });
 
     list.push({
-      params: { slug: component.attributes.title, subdir: "design" },
+      params: { slug: component.attributes.Page.title, subdir: "design" },
       props: { component },
     });
     return list;
@@ -25,7 +25,8 @@ export async function getStaticPaths() {
 }
 
 const { component } = Astro.props;
-const page = component.attributes;
+const { attributes } = component;
+const page = attributes.Page;
 
 const { subdir } = Astro.params;
 
@@ -34,12 +35,21 @@ const frontmatter = {
 };
 
 const allTabs = ["demo", "design"];
+const headings = [];
 ---
 
-<MainLayout {frontmatter}>
+<MainLayout {frontmatter} {headings}>
   <Tabs {allTabs} active={subdir} {component} />
   <article style="white-space: pre-line;">
-    <Fragment set:html={converter.makeHtml(page[subdir])} />
+    <Fragment set:html={converter.makeHtml(attributes[subdir])} />
   </article>
-  <iframe src={page.link} width="100%" height="100" frameborder="0"></iframe>
+  <a href={page.link}>Go to component</a>
+  <iframe class="fullHeight" src={page.link} width="100%" frameborder="0"
+  ></iframe>
 </MainLayout>
+
+<style>
+  .fullHeight {
+    height: 100vh;
+  }
+</style>

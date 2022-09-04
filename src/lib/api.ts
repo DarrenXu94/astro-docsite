@@ -21,7 +21,7 @@ const fetchAPI = async (url) => {
 };
 
 export const getAllPagesWithSlugs = async () => {
-  const data = await fetchAPI(`${BASE_URL}/components`);
+  const data = await fetchAPI(`${BASE_URL}/components?populate=*`);
   return data;
 };
 

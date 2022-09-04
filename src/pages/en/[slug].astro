@@ -8,27 +8,20 @@ export async function getStaticPaths() {
   const pagesWithSlugs = await getAllPagesWithSlugs();
   return pagesWithSlugs.map((component) => {
     return {
-      params: { slug: component.attributes.title },
+      params: { slug: component.attributes.Page.title },
       props: { component },
     };
   });
 }
 
 const { component } = Astro.props;
-const page = component.attributes;
+const page = component.attributes.Page;
 
 const frontmatter = {
   title: page.title,
 };
 ---
 
-<head><meta http-equiv="refresh" content={`0; url=DSButton-demo`} /></head>
-<!-- <MainLayout {frontmatter}>
-  <article style="white-space: pre-line;">
-    <Fragment set:html={converter.makeHtml(page.demo)} />
-  </article>
-  <article style="white-space: pre-line;">
-    <Fragment set:html={converter.makeHtml(page.design)} />
-  </article>
-  <iframe src={page.link} width="100%" height="100" frameborder="0"></iframe>
-</MainLayout> -->
+<head
+  ><meta http-equiv="refresh" content={`0; url=${frontmatter.title}-demo`} />
+</head>
