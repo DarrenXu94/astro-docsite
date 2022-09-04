@@ -28,7 +28,7 @@ console.log(process.env);
 const url =
   process.env.NODE_ENV == "development"
     ? `${frontmatter.title}-demo`
-    : `${canonicalURL.origin}/${frontmatter.title}-demo`;
+    : `${canonicalURL.origin}/en/${frontmatter.title}-demo`;
 ---
 
 <head><meta http-equiv="refresh" content={`0; url=${url}`} /></head>
