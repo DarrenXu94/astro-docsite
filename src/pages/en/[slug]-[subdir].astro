@@ -1,6 +1,6 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
-import { getAllPagesWithSlugs } from "../../lib/api";
+import { getAllPagesWithSlugs, getMenu } from "../../lib/api";
 
 import Tabs from "../../components/Tabs/Tabs.astro";
 
@@ -8,30 +8,49 @@ import showdown from "showdown";
 const converter = new showdown.Converter();
 
 export async function getStaticPaths() {
-  const pagesWithSlugs = await getAllPagesWithSlugs();
-  return pagesWithSlugs.reduce((acc, component) => {
+  const pages = await getMenu();
+
+  const components = pages[0].attributes.items.data;
+
+  return components.reduce((acc, component) => {
     const list = [...acc];
     list.push({
-      params: { slug: component.attributes.Page.title, subdir: "demo" },
+      params: { slug: component.attributes.title, subdir: "demo" },
       props: { component },
     });
 
     list.push({
-      params: { slug: component.attributes.Page.title, subdir: "design" },
+      params: { slug: component.attributes.title, subdir: "design" },
       props: { component },
     });
     return list;
   }, []);
+
+  // const pagesWithSlugs = await getAllPagesWithSlugs();
+  // return pagesWithSlugs.reduce((acc, component) => {
+  //   const list = [...acc];
+  //   list.push({
+  //     params: { slug: component.attributes.Page.title, subdir: "demo" },
+  //     props: { component },
+  //   });
+
+  //   list.push({
+  //     params: { slug: component.attributes.Page.title, subdir: "design" },
+  //     props: { component },
+  //   });
+  //   return list;
+  // }, []);
 }
 
 const { component } = Astro.props;
 const { attributes } = component;
-const page = attributes.Page;
+
+console.log(attributes);
 
 const { subdir } = Astro.params;
 
 const frontmatter = {
-  title: page.title,
+  title: attributes.title,
 };
 
 const allTabs = ["demo", "design"];
@@ -43,8 +62,8 @@ const headings = [];
   <article style="white-space: pre-line;">
     <Fragment set:html={converter.makeHtml(attributes[subdir])} />
   </article>
-  <a href={page.link}>Go to component</a>
-  <iframe class="fullHeight" src={page.link} width="100%" frameborder="0"
+  <a href={attributes.url}>Go to component</a>
+  <iframe class="fullHeight" src={attributes.url} width="100%" frameborder="0"
   ></iframe>
 </MainLayout>
 

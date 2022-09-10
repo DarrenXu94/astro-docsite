@@ -10,7 +10,7 @@ const capitalizeFirstLetter = (string) => {
   {
     allTabs.map((section) => (
       <li class:list={["tab", { tabSelected: active == section }]}>
-        <a href={`/en/${component.attributes.Page.title}-${section}`}>
+        <a href={`/en/${component.attributes.title}-${section}`}>
           {capitalizeFirstLetter(section)}
         </a>
       </li>
