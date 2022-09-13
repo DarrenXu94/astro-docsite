@@ -1,5 +1,7 @@
 const BASE_URL = "http://localhost:1337/api";
 
+// https://strapi-production-9ef0.up.railway.app/admin
+
 const { STRAPI_TOKEN } = import.meta.env;
 
 const fetchAPI = async (url) => {

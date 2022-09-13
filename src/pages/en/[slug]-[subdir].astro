@@ -63,8 +63,11 @@ const headings = [];
     <Fragment set:html={converter.makeHtml(attributes[subdir])} />
   </article>
   <a href={attributes.url}>Go to component</a>
-  <iframe class="fullHeight" src={attributes.url} width="100%" frameborder="0"
-  ></iframe>
+  <iframe
+    class="fullHeight"
+    src={attributes.custom_field}
+    width="100%"
+    frameborder="0"></iframe>
 </MainLayout>
 
 <style>
