@@ -14,5 +14,5 @@ export default defineConfig({
     vue(),
     mdx(),
   ],
-  site: `http://docs.darrenxu.com`,
+  site: `https://docs.darrenxu.com`,
 });
